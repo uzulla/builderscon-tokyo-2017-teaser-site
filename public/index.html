@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>builderscon tokyo 2017 - builderscon</title>
+
+    <!-- SNS meta -->
+    <meta property="fb:app_id" content="1537973726511652" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://builderscon.io/static/images/hex_logo.png" />
+    <meta property="og:site_name" content="builderscon" />
+    <meta name="description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！" />
+    <meta property="og:description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！" />
+    <!-- /SNS meta -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <style>
+        div {
+            font-family: 'VT323', monospace;
+        }
+        body {
+            background-color: #000;
+            color: #0F0;
+            font-size:64px;
+        }
+        .output{
+            content: "\n";
+
+        }
+    </style>
+    <script>
+        $(function(){
+            var text = $('#text').text();
+            var output = $('#output');
+            var i = 0;
+            var delta = 100; 
+
+            setTimeout(function(){
+                if(i>=text.length){
+                    return;
+                }
+                
+                var char = text.substr(i,1);
+
+
+                if(char=="\n"){
+                    output.html(output.html()+"<br>");
+                }else if(char==" "){
+                    output.html(output.html()+"&nbsp;");
+                }else{
+                    output.html(output.html()+text[i]);
+                }
+                i++;
+            },delta);
+
+            setInterval(function(){
+                $('#cursor').toggle();
+            },200);
+
+        });
+    </script>
+<script  id="text" type="text/plain">cat event.json
+{
+  "title": "builderscon tokyo 2017",
+  "open_at": "20170803T100000+0900",
+  "close_at": "20170805T180000+0900",
+  "venue": {
+    "location_lat": 35.655616, 
+    "location_lon": 139.338853,
+    "address": {
+        "ja": "神奈川県横浜市港北区日吉４−１−１ 慶應義塾日吉キャンパス協生館"
+    },
+    "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
+  }
+}
+
+$ </script>
+
+</head>
+<body>
+<div id="fakeconsole">
+<span id=""></span>
+$ <span id="output"></span><span id="cursor">_</span>
+</div>
+</body>
+</html>
