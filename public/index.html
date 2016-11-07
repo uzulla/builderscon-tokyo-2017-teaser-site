@@ -5,12 +5,12 @@
     <title>builderscon tokyo 2017 - builderscon</title>
 
     <!-- SNS meta -->
-    <meta property="fb:app_id" content="1537973726511652" />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://builderscon.io/static/images/hex_logo.png" />
-    <meta property="og:site_name" content="builderscon" />
-    <meta name="description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！" />
-    <meta property="og:description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！" />
+    <meta property="fb:app_id" content="1537973726511652"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="https://builderscon.io/static/images/hex_logo.png"/>
+    <meta property="og:site_name" content="builderscon"/>
+    <meta name="description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！"/>
+    <meta property="og:description" content="知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！"/>
     <!-- /SNS meta -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -19,69 +19,154 @@
         div {
             font-family: 'VT323', monospace;
         }
+
         body {
             background-color: #000;
             color: #0F0;
-            font-size:64px;
+            font-size: 32px;
         }
-        .output{
-            content: "\n";
 
+        a {
+            color: #0F0;
+        }
+
+        .output {
+            content: "\n";
+        }
+
+        #sns_share_buttons{
+            display:none;
+            margin-top:20px;
+            font-size: 0;
         }
     </style>
     <script>
-        $(function(){
+        $(function () {
+
             var text = $('#text').text();
             var output = $('#output');
             var i = 0;
-            var delta = 100; 
+            var delta = 20;
 
-            setTimeout(function(){
-                if(i>=text.length){
-                    return;
-                }
-                
-                var char = text.substr(i,1);
+            walk(text, output, i, delta);
 
-
-                if(char=="\n"){
-                    output.html(output.html()+"<br>");
-                }else if(char==" "){
-                    output.html(output.html()+"&nbsp;");
-                }else{
-                    output.html(output.html()+text[i]);
-                }
-                i++;
-            },delta);
-
-            setInterval(function(){
+            setInterval(function () {
                 $('#cursor').toggle();
-            },200);
+            }, 200);
+
+            function walk(text, output, i, delta) {
+
+                setTimeout(function () {
+                    if (i >= text.length) {
+                        enableLink(output);
+                        showSnsButtons();
+                        return;
+                    }
+
+                    var char = text.substr(i, 1);
+
+                    if (char == "\n") {
+                        output.html(output.html() + "<br>");
+                    } else if (char == " ") {
+                        output.html(output.html() + "&nbsp;");
+                    } else {
+                        output.html(output.html() + text[i]);
+                    }
+                    i++;
+                    walk(text, output, i, delta);
+                }, delta);
+
+            }
+
+            function enableLink(elm){
+                var html = elm.html();
+                html = html.replace(/"(https?:\/\/[\x21-\x7e]+)"/gi, "\"<a href='$1'>$1</a>\"");
+                console.log(html);
+                elm.html(html);
+            }
+
+            function showSnsButtons(){
+                $('#sns_share_buttons').fadeIn(1000);
+            }
+
 
         });
-    </script>
-<script  id="text" type="text/plain">cat event.json
-{
-  "title": "builderscon tokyo 2017",
-  "open_at": "20170803T100000+0900",
-  "close_at": "20170805T180000+0900",
-  "venue": {
-    "location_lat": 35.655616, 
-    "location_lon": 139.338853,
-    "address": {
-        "ja": "神奈川県横浜市港北区日吉４−１−１ 慶應義塾日吉キャンパス協生館"
-    },
-    "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
-  }
-}
 
-$ </script>
+
+    </script>
+    <script id="text" type="text/plain">cat event.json
+[
+  {
+    "title": "builderscon tokyo 2017",
+    "open_at": "20170803T100000+0900",
+    "close_at": "20170805T180000+0900",
+    "venue": {
+      "location_lat": 35.655616,
+      "location_lon": 139.338853,
+      "address": {
+        "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館"
+      },
+      "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
+    }
+  }
+]
+$
+Connection reset by peer</script>
 
 </head>
 <body>
 <div id="fakeconsole">
-<span id=""></span>
-$ <span id="output"></span><span id="cursor">_</span>
+    <span id=""></span>
+    $ <span id="output"></span><span id="cursor">_</span>
+</div>
+<div id="sns_share_buttons">
+    <div id="boxArea" style="display:table;padding:0 0 0 2px;">
+        <div style="width:124px;height:22px;float:left;">
+            <iframe src="//www.facebook.com/v2.0/plugins/like.php?href=https%3A%2F%2F2017.tokyo.builderscon.io%2F&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=90&amp;appId=1537973726511652"
+                    scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:90px;"
+                    allowTransparency="true"></iframe>
+        </div>
+        <div style="width:74px;height:22px;float:left;">
+            <a href="https://twitter.com/share" class="twitter-share-button" {count} data-via="https://2017.tokyo.builderscon.io/" data-lang="ja" data-hashtags="builderscon" data-dnt="true">
+                ツイート
+            </a>
+            <script>
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');
+            </script>
+        </div>
+        <div style="width:82px;height:22px;float:left;">
+            <a href="http://b.hatena.ne.jp/entry/"
+               class="hatena-bookmark-button"
+               data-hatena-bookmark-layout="standard-noballoon"
+               data-hatena-bookmark-lang="ja"
+               title="このエントリーをはてなブックマークに追加">
+                <img
+                        src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加"
+                        width="20" height="20" style="border: none;"/>
+            </a>
+            <script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8"
+                    async="async"></script>
+        </div>
+        <div style="width:86px;height:22px;float:left;">
+            <span>
+                <script type="text/javascript"
+                        src="//media.line.me/js/line-button.js?v=20140411"></script><script
+                    type="text/javascript">new media_line_me.LineButton({
+                "pc": true,
+                "lang": "ja",
+                "type": "a"
+            });</script>
+            </span>
+        </div>
+    </div>
 </div>
 </body>
 </html>
