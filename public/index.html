@@ -49,7 +49,7 @@
     </style>
     <script>
         $(function () {
-            var data = [
+            var scenario = [
                 {
                     "text": "",
                     "delay": 1000
@@ -92,18 +92,21 @@
                 }
             ];
 
-            var output = $('#output');
 
-            scenarioExuecute(data, output);
-
+            /* blink cursor */
             setInterval(function () {
-                if ($("#cursor").hasClass('cursor_black')) {
-                    $("#cursor").removeClass('cursor_black');
+                var cursor = $("#cursor");
+                if (cursor.hasClass('cursor_black')) {
+                    cursor.removeClass('cursor_black');
                 } else {
-                    $("#cursor").addClass('cursor_black');
+                    cursor.addClass('cursor_black');
                 }
 
             }, 200);
+
+            var output = $('#output');
+            scenarioExuecute(scenario, output);
+
 
             function scenarioExuecute(scenario, output) {
                 var chapter = scenario.shift();
@@ -113,12 +116,12 @@
                     return;
                 }
 
-                textTyping(chapter.text, output, 0, chapter.delay, function () {
+                chapterExecute(chapter.text, output, 0, chapter.delay, function () {
                     scenarioExuecute(scenario, output);
                 });
             }
 
-            function textTyping(text, output, i, delay, cb) {
+            function chapterExecute(text, output, i, delay, cb) {
                 setTimeout(function () {
                     if (i >= text.length) {
                         cb();
@@ -138,9 +141,8 @@
                     output.html(output.html() + char);
 
                     i++;
-                    textTyping(text, output, i, delay, cb);
+                    chapterExecute(text, output, i, delay, cb);
                 }, delay);
-
             }
 
             function enableLink(elm) {
