@@ -40,13 +40,13 @@
             content: "\n";
         }
 
-        #sns_share_buttons{
-            display:none;
-            margin-top:20px;
+        #sns_share_buttons {
+            display: none;
+            margin-top: 20px;
             font-size: 0;
         }
 
-        .cursor_black{ /* hide */
+        .cursor_black { /* hide */
             color: #000;
         }
 
@@ -54,36 +54,36 @@
     <script>
         $(function () {
             var data = [
-              {
-                  "text": "cat event.json",
-                  "delay": 200
-              },
-              {
-                  "text": "\n",
-                  "delay": 500
-              },
-              {
-                  "text": JSON.stringify({
-                      "title": "builderscon tokyo 2017",
-                      "open_at": "20170803T100000+0900",
-                      "close_at": "20170805T180000+0900",
-                      "venue": {
-                          "location_lat": 35.655616,
-                          "location_lon": 139.338853,
-                          "address": {
-                            "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館"
-                          },
-                          "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
-                      }
-                  }, null, 2) + "\n"
-              },
-              {
-                  "text": "\$\n",
-                  "delay": 500
-              },
-              {
-                  "text": "Connection reset by peer"
-              }
+                {
+                    "text": "cat event.json",
+                    "delay": 200
+                },
+                {
+                    "text": "\n",
+                    "delay": 500
+                },
+                {
+                    "text": JSON.stringify({
+                        "title": "builderscon tokyo 2017",
+                        "open_at": "20170803T100000+0900",
+                        "close_at": "20170805T180000+0900",
+                        "venue": {
+                            "location_lat": 35.655616,
+                            "location_lon": 139.338853,
+                            "address": {
+                                "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館"
+                            },
+                            "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
+                        }
+                    }, null, 2) + "\n"
+                },
+                {
+                    "text": "\$\n",
+                    "delay": 500
+                },
+                {
+                    "text": "Connection reset by peer"
+                }
             ];
 
             var output = $('#output');
@@ -91,9 +91,9 @@
             walk(data, output);
 
             setInterval(function () {
-                if($("#cursor").hasClass('cursor_black')) {
+                if ($("#cursor").hasClass('cursor_black')) {
                     $("#cursor").removeClass('cursor_black');
-                }else{
+                } else {
                     $("#cursor").addClass('cursor_black');
                 }
 
@@ -101,18 +101,18 @@
 
             function walk(data, output) {
                 var elem = data.shift();
-                if (! elem) {
-                        enableLink(output);
-                        showSnsButtons();
-                        return;
+                if (!elem) {
+                    enableLink(output);
+                    showSnsButtons();
+                    return;
                 }
 
                 var delay = 20;
                 if (elem.delay > 0) {
-                  delay = elem.delay;
+                    delay = elem.delay;
                 }
-                _walk(elem.text, output, 0, delay, function() {
-                  walk(data, output);
+                _walk(elem.text, output, 0, delay, function () {
+                    walk(data, output);
                 });
             }
 
@@ -138,14 +138,14 @@
 
             }
 
-            function enableLink(elm){
+            function enableLink(elm) {
                 var html = elm.html();
                 html = html.replace(/"(https?:\/\/[\x21-\x7e]+)"/gi, "\"<a href='$1'>$1</a>\"");
                 console.log(html);
                 elm.html(html);
             }
 
-            function showSnsButtons(){
+            function showSnsButtons() {
                 $('#sns_share_buttons').fadeIn(1000);
             }
 
@@ -169,7 +169,8 @@
                     allowTransparency="true"></iframe>
         </div>
         <div style="width:74px;height:22px;float:left;">
-            <a href="https://twitter.com/share" class="twitter-share-button" {count} data-via="https://2017.tokyo.builderscon.io/" data-lang="ja" data-hashtags="builderscon" data-dnt="true">
+            <a href="https://twitter.com/share" class="twitter-share-button" {count}
+               data-via="https://2017.tokyo.builderscon.io/" data-lang="ja" data-hashtags="builderscon" data-dnt="true">
                 ツイート
             </a>
             <script>
