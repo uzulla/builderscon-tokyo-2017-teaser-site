@@ -45,6 +45,11 @@
             margin-top:20px;
             font-size: 0;
         }
+
+        .cursor_black{ /* hide */
+            color: #000;
+        }
+
     </style>
     <script>
         $(function () {
@@ -77,17 +82,23 @@
                   "delay": 500
               },
               {
-                  "text": "Connection reset by peer\n"
+                  "text": "Connection reset by peer"
               }
             ];
 
             var output = $('#output');
 
-            walk(data, output)
+            walk(data, output);
 
             setInterval(function () {
-                $('#cursor').toggle();
+                if($("#cursor").hasClass('cursor_black')) {
+                    $("#cursor").removeClass('cursor_black');
+                }else{
+                    $("#cursor").addClass('cursor_black');
+                }
+
             }, 200);
+
             function walk(data, output) {
                 var elem = data.shift();
                 if (! elem) {
