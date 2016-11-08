@@ -46,7 +46,7 @@
             font-size: 0;
         }
 
-        .cursor_black { /* hide */
+        .cursor_black { /* hide cursor */
             color: #000;
         }
 
@@ -54,6 +54,10 @@
     <script>
         $(function () {
             var data = [
+                {
+                    "text": "",
+                    "delay": 1000
+                },
                 {
                     "text": "cat event.json",
                     "delay": 200
@@ -75,11 +79,12 @@
                             },
                             "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
                         }
-                    }, null, 2) + "\n"
+                    }, null, 2) + "\n",
+                    "delay": 20
                 },
                 {
                     "text": "\$ ",
-                    "delay": 500
+                    "delay": 0
                 },
                 {
                     "text": "",
@@ -93,7 +98,7 @@
 
             var output = $('#output');
 
-            walk(data, output);
+            scenarioExuecute(data, output);
 
             setInterval(function () {
                 if ($("#cursor").hasClass('cursor_black')) {
@@ -104,41 +109,40 @@
 
             }, 200);
 
-            function walk(data, output) {
-                var elem = data.shift();
-                if (!elem) {
+            function scenarioExuecute(scenario, output) {
+                var chapter = scenario.shift();
+                if (!chapter) {
                     enableLink(output);
                     showSnsButtons();
                     return;
                 }
 
-                var delay = 20;
-                if (elem.delay > 0) {
-                    delay = elem.delay;
-                }
-                _walk(elem.text, output, 0, delay, function () {
-                    walk(data, output);
+                textTyping(chapter.text, output, 0, chapter.delay, function () {
+                    scenarioExuecute(scenario, output);
                 });
             }
 
-            function _walk(text, output, i, delay, cb) {
+            function textTyping(text, output, i, delay, cb) {
                 setTimeout(function () {
                     if (i >= text.length) {
                         cb();
                         return;
                     }
 
+                    if(delay == 0){
+                        text = text.replace(/\n/, "<br>").replace(/ /, "&nbsp;");
+                        output.html(output.html() + text);
+                        cb();
+                        return;
+                    }
+
                     var char = text.substr(i, 1);
 
-                    if (char == "\n") {
-                        output.html(output.html() + "<br>");
-                    } else if (char == " ") {
-                        output.html(output.html() + "&nbsp;");
-                    } else {
-                        output.html(output.html() + text[i]);
-                    }
+                    char  = char.replace(/\n/, "<br>").replace(/ /, "&nbsp;");
+                    output.html(output.html() + char);
+
                     i++;
-                    _walk(text, output, i, delay, cb);
+                    textTyping(text, output, i, delay, cb);
                 }, delay);
 
             }
@@ -153,7 +157,6 @@
             function showSnsButtons() {
                 $('#sns_share_buttons').fadeIn(1000);
             }
-
 
         });
 
