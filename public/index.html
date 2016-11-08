@@ -78,11 +78,16 @@
                     }, null, 2) + "\n"
                 },
                 {
-                    "text": "\$\n",
+                    "text": "\$ ",
                     "delay": 500
                 },
                 {
-                    "text": "Connection reset by peer"
+                    "text": "",
+                    "delay": 1000
+                },
+                {
+                    "text": "\nConnection reset by peer",
+                    "delay": 0
                 }
             ];
 
@@ -116,7 +121,7 @@
                 });
             }
 
-            function _walk(text, output, i, delta, cb) {
+            function _walk(text, output, i, delay, cb) {
                 setTimeout(function () {
                     if (i >= text.length) {
                         cb();
@@ -133,8 +138,8 @@
                         output.html(output.html() + text[i]);
                     }
                     i++;
-                    _walk(text, output, i, delta, cb);
-                }, delta);
+                    _walk(text, output, i, delay, cb);
+                }, delay);
 
             }
 
