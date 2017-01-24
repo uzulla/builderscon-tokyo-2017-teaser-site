@@ -32,7 +32,7 @@
         body {
             background-color: #000;
             color: #0F0;
-            font-size: 32px;
+            font-size: 24px;
         }
 
         a {
@@ -50,6 +50,23 @@
         }
 
     </style>
+    <style id="src">{
+  "title": "builderscon tokyo 2017",
+  "dates": [ "Aug 3, 2017 (Thu)", "Aug 4, 2017 (Fri)", "Aug 5, 2017 (Sat)" ],
+  "guests": {
+    "Trey Guinn": { "from": "Cloudflare", "on": "Internet security" },
+    "Felix Rieseberg": { "from": "Slack", "on": "Slack frontend dev" },
+    "TBA": "... and others!"
+  },
+  "venue": {
+    "url": "https://goo.gl/maps/bH2pRAbpL8z",
+    "address": {
+      "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館",
+      "en": "Kyoseikan Keio University Hiyoshi Campus, Hiyoshi 4-1-1, Kouhoku-ku Yokohama, Kanagawa-Ken, Japan"
+    }
+  }
+}
+</style>
     <script>
         $(function () {
             var scenario = [
@@ -58,7 +75,7 @@
                     "delay": 1000
                 },
                 {
-                    "text": "cat event.json",
+                    "text": "cat event.json | jq -M 'del (.description)'",
                     "delay": 200
                 },
                 {
@@ -66,21 +83,8 @@
                     "delay": 500
                 },
                 {
-                    "text": JSON.stringify({
-                        "title": "builderscon tokyo 2017",
-                        "open_at": "20170803T100000+0900",
-                        "close_at": "20170805T180000+0900",
-                        "venue": {
-                            "location_lat": 35.655616,
-                            "location_lon": 139.338853,
-                            "address": {
-                                "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館",
-                                "en": "Kyoseikan Keio University Hiyoshi Campus, Hiyoshi 4-1-1, Kouhoku-ku Yokohama, Kanagawa-Ken, Japan"
-                            },
-                            "google_map_url": "https://goo.gl/maps/bH2pRAbpL8z"
-                        }
-                    }, null, 2) + "\n",
-                    "delay": 20
+                    "text": $("#src").text(),
+                    "delay": 5
                 },
                 {
                     "text": "\$ ",
@@ -151,7 +155,7 @@
 
             function enableLink(elm) {
                 var html = elm.html();
-                html = html.replace(/"(https?:\/\/[\x21-\x7e]+)"/gi, "\"<a href='$1'>$1</a>\"");
+                html = html.replace(/"(https?:\/\/[\x23-\x7e]+)"/gi, "\"<a href='$1'>$1</a>\"");
                 console.log(html);
                 elm.html(html);
             }
@@ -225,20 +229,22 @@
 <h1>builderscon tokyo 2017</h1>
 <p>builderscon tokyo 2017 | Aug 3 - 5, 2017 / at Kyouseikan, Keio University. | 知らなかった、を聞く - buildersconは技術を愛する全てのギーク達のお祭りです！</p>
 <pre>
-$ cat event.json
+$ cat event.json | jq -M 'del (.description)'
 {
-    "title": "builderscon tokyo 2017",
-    "open_at": "20170803T100000+0900",
-    "close_at": "20170805T180000+0900",
-    "venue": {
-        "location_lat": 35.655616,
-        "location_lon": 139.338853,
-        "address": {
-            "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館",
-            "en": "Kyoseikan Keio University Hiyoshi Campus, Hiyoshi 4-1-1, Kouhoku-ku Yokohama, Kanagawa-Ken, Japan"
-        },
-        "google_map_url": "<a href="https://goo.gl/maps/bH2pRAbpL8z">https://goo.gl/maps/bH2pRAbpL8z</a>"
+  "title": "builderscon tokyo 2017",
+  "dates": [ "Aug 3, 2017 (Thu)", "Aug 4, 2017 (Fri)", "Aug 5, 2017 (Sat)" ],
+  "guests": {
+    "Trey Guinn": { "from": "Cloudflare", "on": "Internet security" },
+    "Felix Rieseberg": { "from": "Slack", "on": "Slack frontend dev" },
+    "TBA": "... and others!"
+  },
+  "venue": {
+    "url": "<a href="https://goo.gl/maps/bH2pRAbpL8z">https://goo.gl/maps/bH2pRAbpL8z</a>",
+    "address": {
+      "ja": "神奈川県横浜市港北区日吉4-1-1 慶應義塾日吉キャンパス 協生館",
+      "en": "Kyoseikan Keio University Hiyoshi Campus, Hiyoshi 4-1-1, Kouhoku-ku Yokohama, Kanagawa-Ken, Japan"
     }
+  }
 }
 $
 Connection reset by peer_
