@@ -155,7 +155,7 @@
 
             function enableLink(elm) {
                 var html = elm.html();
-                html = html.replace(/"(https?:\/\/[\x23-\x7e]+)"/gi, "\"<a href='$1'>$1</a>\"");
+                html = html.replace(/"(https?:\/\/[\x23-\x7e]+)"/gi, "\"<a target=\"_blank\" href='$1'>$1</a>\"");
                 console.log(html);
                 elm.html(html);
             }
